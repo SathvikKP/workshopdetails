@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #76d7c4;">
+  <a class="navbar-brand" href="#">Hello</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/">Profiles</a>
+      <a class="nav-item nav-link active" href="/view_workshop">View Workshops <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/add_workshop">Organize a Workshop</a>
+      <a class="nav-item nav-link" href="/delete_workshop">Delete Workshop Info</a>
+      <a class="nav-item nav-link active" href="/update_workshop">Update Workshop Info</a>
+    </div>
+  </div>
+</nav>
+<div class="jumbotron" style="background-color:  #f7dc6f ;" >
+  <h1 class="display-4">Hey, there!</h1>
+  <p class="lead">Here is a list of workshops in Bangalore that might interest you</p>
+  <hr class="my-4">
+  <p>Search for a workshop using the workshop ID.</p>
+  <form method="post" action="/view_workshop" class="form-inline">
+  <div class="form-group mx-sm-3 mb-2">
+    <input type="text" class="form-control" name="id" placeholder="Enter workshop ID">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Search</button>
+</form>
+</div>
+<%if (data.result.length === 0){%>
+  <div class="button-center">
+  <h1 class="display-4">No Workshops</h1>
+</div>
+<%}else{data.result.forEach(res=>{%>
+  <div class="card text-center align-proper">
+    <div class="card-header">
+      ID:<%=res.id%>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= res.name_of_workshop %></h5>
+      <p class="card-text"><%=res.type_of_workshop%></p>
+      <p class="card-text">Instructor : <%=res.name_of_organizer%></p>
+      <p class="card-text">Location : <%=res.address%></p>
+      <p class="card-text">Contact : <%=res.contact%></p>
+      <p class="card-text">Email : <%=res.email%></p>
+      <p class="card-text"> Description: <%=res.description%></p>
+      <p class="card-text"> Date: <%=res.date%></p>
+      <p class="card-text"> Time: <%=res.time%></p>
+    </div>
+    <div class="card-footer text-muted">
+      Capacity : <%=res.no_of_people %>
+    </div>
+  </div>
+<% }) %>
+<%}%>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

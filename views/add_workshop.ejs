@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8">
+
+    <script src="angular/angular.min.js"> </script>
+
+    <title></title>
+  </head>
+
+<script> var myModule = angular.module("myApp",[])  </script>
+
+<body ng-app = "myApp">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #76d7c4;">
+  <a class="navbar-brand" href="#">Hello</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/">Profiles</a>
+      <a class="nav-item nav-link" href="/view_workshop">View Workshops <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" href="/add_workshop">Organize a Workshop</a>
+      <a class="nav-item nav-link" href="/delete_workshop">Delete Workshop Info</a>
+      <a class="nav-item nav-link active" href="/update_workshop">Update Workshop Info</a>
+    </div>
+  </div>
+</nav>
+<div class="jumbotron" style="background-color:#f7dc6f ;" >
+  <h1 class="display-4">Hey, there!</h1>
+  <p class="lead">Wanna organize a workshop?</p>
+  <hr class="my-4">
+  <p>Enter workshop details here.</p>
+</div>
+
+<!--form method="post" action="/add_workshop"><-->
+<form ng-controller='appController' ng-submit="send()">
+  <div class="align-proper">
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="id">Workshop ID</label>
+      <input type="text" name="id" ng-model="data.id" class="form-control" placeholder="Enter a Unique ID for Workshop" value=<%=data.id%> >
+    </div>
+    <div class="form-group col-md-4">
+      <label for="name_of_workshop">Name of Workshop</label>
+      <input type="text" name="name_of_workshop" ng-model="data.name_of_workshop" class="form-control" value=<%=data.name_of_workshop%> >
+    </div>
+    <div class="form-group col-md-4">
+      <label for="type_of_workshop">Type of Workshop</label>
+      <select name="type_of_workshop" ng-model="data.type_of_workshop" class="form-control">
+        <%if(data.type_of_workshop === 'Soft Skills'){%>
+          <option value="Technology">Technology</option>
+          <option value="Soft Skills" selected>Soft Skills</option>
+          <option value="Management">Management</option>
+          <option value="Miscellaneous">Miscellaneous</option>
+        <%}else if(data.type_of_workshop === 'Management'){%>
+          <option value="Technology">Technology</option>
+          <option value="Soft Skills">Soft Skills</option>
+          <option value="Management" selected>Management</option>
+          <option value="Miscellaneous">Miscellaneous</option>
+        <%}else if(data.type_of_workshop === 'Miscellaneous'){%>
+          <option value="Technology">Technology</option>
+          <option value="Soft Skills">Soft Skills</option>
+          <option value="Management">Management</option>
+          <option value="Miscellaneous" selected>Miscellaneous</option>
+        <%}else{%>
+          <option value="Technology" selected >Technology</option>
+          <option value="Soft Skills">Soft Skills</option>
+          <option value="Management">Management</option>
+          <option value="Miscellaneous">Miscellaneous</option>
+        <%}%>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="no_of_people">No of People</label>
+      <input type="number" class="form-control" name="no_of_people" ng-model="data.no_of_people" min="1" max="100" value=<%=data.no_of_people%> >
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="name_of_organizer">Name of the organizer</label>
+      <input type="text" class="form-control" name="name_of_organizer" ng-model="data.name_of_organizer" value="<%=data.name_of_organizer%>" >
+    </div>
+    <div class="form-group col-md-4">
+      <label for="contact">Contact</label>
+      <input type="text" class="form-control" name="contact" ng-model="data.contact" value="<%=data.contact%>" >
+    </div>
+    <div class="form-group col-md-4">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" name="email" ng-model="data.email" value="<%=data.email%>" >
+    </div>
+  </div>
+  <div class="form-row">
+  <div class="form-group col-md-6">
+    <label for="address">Address</label>
+    <input type="text" class="form-control" placeholder="1234 Main St" name="address" ng-model="data.address" value="<%=data.address%>" >
+  </div>
+  <div class="form-group col-md-4">
+    <label for="date">Date</label>
+    <input type="text" class="form-control" name="date" ng-model="data.date" value=<%=data.date%> >
+  </div>
+  <div class="form-group col-md-2">
+    <label for="time">Select a time:</label>
+    <input type="text" class="form-control" name="time" ng-model="data.time" value=<%=data.time%> >
+  </div>
+  </div>
+  <div class="form-row">
+  <div class="form-group col-md-8">
+    <label for="description">Description of the workshop</label>
+    <input type="text" class="form-control" placeholder="Describe your event" name="description" ng-model="data.description" value="<%=data.description%>">
+  </div>
+
+  <!--
+  <div class="form-group col-md-2">
+    <label for="done">Click Below</label>
+    <button type="submit" name="done" class="form-control btn btn-primary">Confirm</button>
+  </div>
+  -->
+
+  <input type="submit" ng-click="Submit">
+  <div><pre>{{response.data}}</pre>  </div>
+
+</div>
+  </div>
+  </form>
+
+	<script>
+
+		myModule.controller ("appController",
+        function appController($scope, $http, $window) {
+
+            $scope.data = {}
+            $scope.response = {}
+
+            $scope.send = function () {
+
+				console.log($scope.data.id);
+                var posting = $http({
+
+                    method: 'POST',
+                    url: '/process_post',
+                    data: $scope.data,
+
+                }).then (function (response) {
+
+                    console.log(response);
+                    console.log (response.data.cmd);
+
+
+                    if (response.data.cmd==='done'){
+                    console.log('done');
+                    $window.location.href = '/done.html';
+                    }
+
+                },function (error){
+					console.log(error);
+			});
+            }
+        });
+
+
+
+	</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
